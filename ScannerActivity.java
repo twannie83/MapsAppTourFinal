@@ -18,13 +18,11 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        setContentView(R.layout.activity_main);
+        startScanner();
 
     }
 
-    public void buttonScanClickFunction(View v){
+    public void startScanner(){
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
         mScannerView.setResultHandler(this);
