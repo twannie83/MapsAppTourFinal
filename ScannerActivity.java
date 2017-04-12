@@ -1,6 +1,7 @@
 package com.casasolutions.mapsapptour;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,8 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
 
     private ZXingScannerView mScannerView;
+    public String url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +40,32 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
     @Override
     public void handleResult(Result result) {
-        //Do anything with result here :D
+        /*Do anything with result here :D
         Log.w("handleResult",result.getText( ));
         AlertDialog.Builder builder= new AlertDialog.Builder(this);
         builder.setTitle("Scan Result");
         builder.setMessage(result.getText());
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+        */
+        Log.w("handleResult",result.getText( ));
+        url = result.getText();
+        Intent intent = new Intent(getApplicationContext(), WebActivity.class);
+
+        //Give url to new webActivity
+        Bundle b = new Bundle();
+        b.putString("url", url);
+        intent.putExtras(b); //Put your url to your next Intent
+
+        startActivity(intent);
+
+
 
         //Resume scanning uncomment below
         //mScannerView.resumeCameraPreview(this);
     }
 
+    public String getUrl() {
+        return url;
+    }
 }
