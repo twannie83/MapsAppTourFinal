@@ -54,7 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(lettele));
 
         // Zoom to Lettele
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lettele, 15));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(punt3, 14));
         googleMap.setMapType(2);
 
     }
