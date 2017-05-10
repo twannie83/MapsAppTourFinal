@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(getApplicationContext(), ScannerActivity.class);
         startActivity(intent);
     }
+    public void buttonRecorderClickFunction(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), RecorderActivity.class);
+        startActivity(intent);
+    }
 
 
 }
