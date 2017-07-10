@@ -17,6 +17,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
     private ZXingScannerView mScannerView;
     public String url;
+    public String formattedUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         */
         Log.w("handleResult",result.getText( ));
         url = result.getText();
+
+
         Intent intent = new Intent(getApplicationContext(), WebActivity.class);
 
         //Give url to new webActivity
