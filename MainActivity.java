@@ -28,12 +28,14 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity{
 
-    /*Combobox for choosing question type
-    * ID1 = "Historie"
+    /*Combobox for choosing info type
+    * ID1= "Historie"
     * ID2= "Cultuur"
     * ID3= "Natuur"
     */
     private Spinner infoTypeSpinner;
+    public static String infoType = "ID1";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,13 @@ public class MainActivity extends AppCompatActivity{
         infoTypeSpinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
 
+    public String getInfoType(){
+        return infoType;
+    }
+
+    public void setInfoType(String infoTypeVar){
+        infoType = infoTypeVar;
+    }
 
 
 

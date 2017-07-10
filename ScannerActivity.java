@@ -8,7 +8,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Toast;
+
 import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -17,12 +22,13 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
     private ZXingScannerView mScannerView;
     public String url;
-    public String formattedUrl;
+    private String infoTypeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startScanner();
+        showUserAlertBox("Instructie voor het scannen", "Beweeg camera naar de pokkelpoal en houd QR plaatje enkele seconde stil in het vierkant, totdat informatie wordt opgehaald");
 
     }
 
@@ -41,16 +47,25 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
     @Override
     public void handleResult(Result result) {
-        /*Do anything with result here :D
+        //Do anything with result here :D
         Log.w("handleResult",result.getText( ));
         AlertDialog.Builder builder= new AlertDialog.Builder(this);
-        builder.setTitle("Scan Result");
-        builder.setMessage(result.getText());
+        builder.setTitle("Pokkelpoal succesvol gescand!");
+        builder.setMessage("U wordt nu doorgestuurd naar de Stiefeltoch informatie bij deze pokkelpoal");
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-        */
         Log.w("handleResult",result.getText( ));
         url = result.getText();
+
+
+        //Add ID to URL
+        infoTypeId = MainActivity.infoType;
+        url = url + "-"+ infoTypeId;
+
+        /* Debug builder.setTitle("Url met ID: ");
+        builder.setMessage(url);
+        alertDialog = builder.create();
+        alertDialog.show();*/
 
 
         Intent intent = new Intent(getApplicationContext(), WebActivity.class);
@@ -66,6 +81,22 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
         //Resume scanning uncomment below
         //mScannerView.resumeCameraPreview(this);
+    }
+
+    private void showUserAlertBox(String title, String text){
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(text);
+        AlertDialog alertDialog = builder.create();
+
+        Window window = alertDialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+
+        wlp.gravity = Gravity.BOTTOM;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        window.setAttributes(wlp);
+
+        alertDialog.show();
     }
 
     public String getUrl() {

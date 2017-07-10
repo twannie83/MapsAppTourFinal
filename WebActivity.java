@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -46,6 +47,12 @@ public class WebActivity extends AppCompatActivity {
         view.loadUrl(url);
         view.setWebChromeClient(new WebChromeClient()); // adding js alert support
 
+    }
+
+    public void homeButtonClickFunction(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
 }
