@@ -1,7 +1,9 @@
 package com.casasolutions.mapsapptour;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -41,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Lettele
         LatLng lettele =new LatLng(52.276390, 6.271862);
-        mMap.addMarker(new MarkerOptions().position(lettele).title("Lettele").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        mMap.addMarker(new MarkerOptions().position(lettele).title("Lettele").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
         /*LatLng punt1 =new LatLng(52.278159, 6.264606);
         mMap.addMarker(new MarkerOptions().position(punt1).title("Oaver de kamp").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
@@ -57,7 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng Kapelweide= new LatLng(52.278853, 6.272507);mMap.addMarker(new MarkerOptions().position(Kapelweide).title("Kapelweide").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
         LatLng  Spikker= new LatLng(52.278594, 6.272405);mMap.addMarker(new MarkerOptions().position( Spikker).title(" Spikker").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         LatLng  Eerste_Kapel= new LatLng(52.278197, 6.270588);mMap.addMarker(new MarkerOptions().position( Eerste_Kapel).title(" Eerste_Kapel").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-        LatLng Moestuin_project= new LatLng(52.278004, 6.270581);mMap.addMarker(new MarkerOptions().position(Moestuin_project).title("Moestuin_project").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+        //LatLng Moestuin_project= new LatLng(52.278004, 6.270581);mMap.addMarker(new MarkerOptions().position(Moestuin_project).title("Moestuin_project").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
         LatLng Oude_Looischuur= new LatLng(52.277521, 6.270299);mMap.addMarker(new MarkerOptions().position(Oude_Looischuur).title("Oude_Looischuur").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         LatLng Begraafplaats= new LatLng(52.277842, 6.270640);mMap.addMarker(new MarkerOptions().position(Begraafplaats).title("Begraafplaats").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         LatLng Kerk= new LatLng(52.277244, 6.270563);mMap.addMarker(new MarkerOptions().position(Kerk).title("Kerk").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
@@ -75,9 +77,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(lettele));
 
         // Zoom to Lettele
-        LatLng centraalpunt =new LatLng(52.276987, 6.277046);
+        LatLng centraalpunt =new LatLng(52.276702, 6.275418);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centraalpunt, 15));
         googleMap.setMapType(2);
 
+    }
+
+    public void homeButtonClickFunction(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 }

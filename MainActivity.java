@@ -3,6 +3,7 @@ package com.casasolutions.mapsapptour;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,29 +50,36 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         addAppPermissions();
-        //add items,
+
+        //add items to spinner
         addItemsOnSpinner();
         addListenerOnSpinnerItemSelection();
     }
 
     public void buttonClickFunction(View v)
     {
+        if (isInternetOn()){
         Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
         startActivity(intent);
+        }
     }
 
     //@RequiresApi(api = Build.VERSION_CODES.M)
     public void buttonScanClickFunction(View v)
     {
-        Intent intent = new Intent(getApplicationContext(), ScannerActivity.class);
-        startActivity(intent);
+        if (isInternetOn()) {
+            Intent intent = new Intent(getApplicationContext(), ScannerActivity.class);
+            startActivity(intent);
+        }
     }
     public void buttonRecorderClickFunction(View v)
     {
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.casasolutions.mapsapptour")));
-        } catch (android.content.ActivityNotFoundException anfe) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.casasolutions.mapsapptour" )));
+        if (isInternetOn()) {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.casasolutions.mapsapptour")));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.casasolutions.mapsapptour")));
+            }
         }
     }
 
@@ -157,6 +165,33 @@ public class MainActivity extends AppCompatActivity{
                 .setNegativeButton("Cancel", null)
                 .create()
                 .show();
+    }
+
+    public final boolean isInternetOn() {
+
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec =
+                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+
+        // Check for network connections
+        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
+
+            // if connected with internet
+
+            //Toast.makeText(this, " Verbonden met internet ", Toast.LENGTH_LONG).show();
+            return true;
+
+        } else if (
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
+
+            Toast.makeText(this, " Geen verbinding met internet", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return false;
     }
 
 
