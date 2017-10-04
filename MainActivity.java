@@ -1,9 +1,16 @@
 package com.casasolutions.mapsapptour;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -36,11 +43,12 @@ public class MainActivity extends AppCompatActivity{
     private Spinner infoTypeSpinner;
     public static String infoType = "ID1";
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        addAppPermissions();
         //add items,
         addItemsOnSpinner();
         addListenerOnSpinnerItemSelection();
@@ -52,6 +60,7 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
+    //@RequiresApi(api = Build.VERSION_CODES.M)
     public void buttonScanClickFunction(View v)
     {
         Intent intent = new Intent(getApplicationContext(), ScannerActivity.class);
@@ -59,8 +68,11 @@ public class MainActivity extends AppCompatActivity{
     }
     public void buttonRecorderClickFunction(View v)
     {
-        Intent intent = new Intent(getApplicationContext(), RecorderActivity.class);
-        startActivity(intent);
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.casasolutions.mapsapptour")));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.casasolutions.mapsapptour" )));
+        }
     }
 
     /* Fill combobox spinner with values*/
@@ -89,6 +101,63 @@ public class MainActivity extends AppCompatActivity{
         infoType = infoTypeVar;
     }
 
+   final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+   private void addAppPermissions() {
+        List<String> permissionsNeeded = new ArrayList<String>();
+
+        final List<String> permissionsList = new ArrayList<String>();
+        if (!addPermission(permissionsList, Manifest.permission.ACCESS_FINE_LOCATION))
+            permissionsNeeded.add("GPS");
+        if (!addPermission(permissionsList, Manifest.permission.CAMERA))
+            permissionsNeeded.add("Camera");
+        if (!addPermission(permissionsList, Manifest.permission.INTERNET))
+            permissionsNeeded.add("Internet");
+
+        if (permissionsList.size() > 0) {
+            if (permissionsNeeded.size() > 0) {
+                // Need Rationale
+                String message = "Er is toegang nodig tot " + permissionsNeeded.get(0);
+                for (int i = 1; i < permissionsNeeded.size(); i++)
+                    message = message + ", " + permissionsNeeded.get(i);
+                showMessageOKCancel(message,
+                        new DialogInterface.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.M)
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(MainActivity.this,permissionsList.toArray(new String[permissionsList.size()]),
+                                        REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+                            }
+                        });
+                return;
+            }
+                    ActivityCompat.requestPermissions(this,permissionsList.toArray(new String[permissionsList.size()]),
+                    REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            return;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean addPermission(List<String> permissionsList, String permission) {
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+            permissionsList.add(permission);
+            // Check for Rationale Option
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permission))
+                return false;
+        }
+        return true;
+    }
+
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
 
 
 }

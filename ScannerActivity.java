@@ -1,10 +1,16 @@
 package com.casasolutions.mapsapptour;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,6 +21,10 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
@@ -58,9 +68,10 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         url = result.getText();
 
 
-        //Add ID to URL
+        /*Add ID to URL *OBSOLETE*
         infoTypeId = MainActivity.infoType;
         url = url + "-"+ infoTypeId;
+        */
 
         /* Debug builder.setTitle("Url met ID: ");
         builder.setMessage(url);
@@ -103,3 +114,5 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         return url;
     }
 }
+
+
