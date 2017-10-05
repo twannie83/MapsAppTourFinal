@@ -112,6 +112,12 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     public String getUrl() {
         return url;
     }
+
+    public void goHomeFunction(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
 }
 
 
