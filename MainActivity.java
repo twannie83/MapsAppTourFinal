@@ -87,9 +87,12 @@ public class MainActivity extends AppCompatActivity{
     public void addItemsOnSpinner() {
         infoTypeSpinner = (Spinner) findViewById(R.id.spinner);
         List<String> list = new ArrayList<String>();
+
+        list.add("Alle");
+        list.add("Natuur");
         list.add("Historie");
         list.add("Cultuur");
-        list.add("Natuur");
+
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
             android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

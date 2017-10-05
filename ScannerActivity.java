@@ -32,19 +32,18 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
     private ZXingScannerView mScannerView;
     public String url;
-    private String infoTypeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_scanner);
+        mScannerView= (ZXingScannerView) findViewById(R.id.zxscan);
         startScanner();
         showUserAlertBox("Instructie voor het scannen", "Beweeg camera naar de pokkelpoal en houd QR plaatje enkele seconde stil in het vierkant, totdat informatie wordt opgehaald");
 
     }
 
     public void startScanner(){
-        mScannerView = new ZXingScannerView(this);
-        setContentView(mScannerView);
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();
     }

@@ -49,7 +49,7 @@ public class WebActivity extends AppCompatActivity {
 
     }
 
-    public void homeButtonClickFunction(View v)
+    public void goHomeFunction(View v)
     {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);

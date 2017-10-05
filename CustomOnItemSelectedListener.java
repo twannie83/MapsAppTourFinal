@@ -8,18 +8,21 @@ import android.widget.Toast;
 public class CustomOnItemSelectedListener implements OnItemSelectedListener {
 
     /*Method gets value from combobox and changes public value infoType
-    * ID1= "Historie" Default
-    * ID2= "Cultuur"
-    * ID3= "Natuur"
+    * ID0= "Alle" Default
+    * ID1= "Natuur"
+    * ID2= "Historie"
+    * ID3= "Cultuur"
     */
     public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
         MainActivity mainActivity = new MainActivity();
         if ( pos == 1){
-            mainActivity.setInfoType("id2");
+            mainActivity.setInfoType("Natuur");
         }else if(pos == 2){
-            mainActivity.setInfoType("id3");
+            mainActivity.setInfoType("Historie");
+        }else if(pos == 3){
+            mainActivity.setInfoType("Cultuur");
         }else {
-            mainActivity.setInfoType("id1");
+            mainActivity.setInfoType("Alle");
         }
 
         //report to user info type has changed
