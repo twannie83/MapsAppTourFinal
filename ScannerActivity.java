@@ -39,7 +39,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         setContentView(R.layout.activity_scanner);
         mScannerView= (ZXingScannerView) findViewById(R.id.zxscan);
         startScanner();
-        showUserAlertBox("Instructie voor het scannen", "Beweeg camera naar de pokkelpoal en houd QR plaatje enkele seconde stil in het vierkant, totdat informatie wordt opgehaald");
+        //showUserAlertBox("Instructie voor het scannen", "Beweeg camera naar de pokkelpoal en houd QR plaatje enkele seconde stil in het vierkant, totdat informatie wordt opgehaald");
 
     }
 
@@ -60,7 +60,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         Log.w("handleResult",result.getText( ));
         AlertDialog.Builder builder= new AlertDialog.Builder(this);
         builder.setTitle("Pokkelpoal succesvol gescand!");
-        builder.setMessage("U wordt nu doorgestuurd naar de Stiefeltoch informatie bij deze pokkelpoal");
+        builder.setMessage("U wordt nu doorgestuurd naar de Stiefeltocht informatie bij deze pokkelpoal");
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
         Log.w("handleResult",result.getText( ));
@@ -93,7 +93,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         //mScannerView.resumeCameraPreview(this);
     }
 
-    private void showUserAlertBox(String title, String text){
+    /*private void showUserAlertBox(String title, String text){
         AlertDialog.Builder builder= new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(text);
@@ -107,7 +107,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         window.setAttributes(wlp);
 
         alertDialog.show();
-    }
+    }*/
 
     public String getUrl() {
         return url;
