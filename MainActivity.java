@@ -72,6 +72,14 @@ public class MainActivity extends AppCompatActivity{
             startActivity(intent);
         }
     }
+
+    public void buttonStiefelRaadselFunction(View v)
+    {
+        if (isInternetOn()) {
+            Intent intent = new Intent(getApplicationContext(), StiefelRaadselActivity.class);
+            startActivity(intent);
+        }
+    }
     public void buttonRecorderClickFunction(View v)
     {
         if (isInternetOn()) {
