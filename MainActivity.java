@@ -83,11 +83,7 @@ public class MainActivity extends AppCompatActivity{
     public void buttonRecorderClickFunction(View v)
     {
         if (isInternetOn()) {
-            try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.casasolutions.mapsapptour")));
-            } catch (android.content.ActivityNotFoundException anfe) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.casasolutions.mapsapptour")));
-            }
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.casasolutions.mapsapptour&reviewId=0")));
         }
     }
 

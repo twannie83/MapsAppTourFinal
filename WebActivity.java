@@ -55,4 +55,8 @@ public class WebActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goStiefelRaadselFunction(View v) {
+        Intent intent = new Intent(getApplicationContext(), StiefelRaadselActivity.class);
+        startActivity(intent);
+    }
 }
